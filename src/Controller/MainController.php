@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoriesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,8 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'main')]
-    public function index(): Response
+    public function index(CategoriesRepository $categoriesRepository): Response
     {
-        return $this->render('main/index.html.twig');
+        //pour faire afficher les catégories je fais appel à au categorieRepository et je l'envoie dans la vue.
+        // je pouyrrais faire ça: $category = $categoriesRepositories->findBy() mais je le met directement ici dans la vue
+        return $this->render('main/index.html.twig', [
+            'categories' => $categoriesRepository->findBy([], ['categoryOrder' => 'asc'])
+        ]);
     }
 }

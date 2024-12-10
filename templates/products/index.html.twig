@@ -4,30 +4,24 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>Liste des produits<h1/>
+				</div>
+				{% for product in products %}
+					<div class="col-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<h3 class="card-title">{{product.name}}</h3>
+								<a class="btn btn-primary">Voir le produit</a>
+							</div>
+						</div>
+					</div>
 
-	<div class="example-wrapper">
-		<h1>Liste des produits</h1>
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>C:/Users/guiti/Desktop/preformation devweb/Symfony/e-commerce/app/src/Controller/ProductsController.php</code>
-			</li>
-			<li>Your template at
-				<code>C:/Users/guiti/Desktop/preformation devweb/Symfony/e-commerce/app/templates/products/index.html.twig</code>
-			</li>
-		</ul>
-	</div>
-{% endblock %}
+				{% endfor %}
+			</section>
+		</main>
+
+	{% endblock %}
