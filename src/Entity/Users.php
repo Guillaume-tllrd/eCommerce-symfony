@@ -52,6 +52,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 150)]
     private ?string $city = null;
 
+    #[ORM\Column]
+    private ?bool $is_verified = false; //isverifed est faux tant que la personne n'a pas vérifié son compte car il ne peut pas être null
     /**
      * @var Collection<int, Orders>
      */
@@ -195,6 +197,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->city = $city;
 
+        return $this;
+    }
+
+    // on fait un message dans le fichier base.html.html pour les comptes non vérifiés
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
         return $this;
     }
 

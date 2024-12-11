@@ -7,14 +7,12 @@
 			{% endblock %}Site e-commerce
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-		<meta
-		name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		{# Feuilles de stylesheets #}
-        {# asset est une fonction twig qui permet d'avoir un chemin relatif directement au dossier public #}
-		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-        {% block stylesheets %}{% endblock %}
-		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+		{# asset est une fonction twig qui permet d'avoir un chemin relatif directement au dossier public #}
+		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">{% block stylesheets %}{% endblock %} <link
+		rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 		{# fichier js  #}
 		<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" defer></script>
@@ -25,6 +23,18 @@
 
 	<body>
 		{% include "_partials/_nav.html.twig"%}
+
+		{# on fait un message pour les comptes pas activés #}
+		{% if app.user and app.user.isVerified == false %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+				<div class="alert-message">
+					<strong>Votre compte n'est pas activé</strong>,
+					<a href="{{path('resend_verif')}}">renvoyer le lien d'activation</a>
+				</div>
+			</div>
+		{% endif %}
+		{% include "_partials/_flash.html.twig"%}
 		{% block body %}{% endblock %}
 		{% include "_partials/_footer.html.twig"%}
 	</body>
