@@ -54,6 +54,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $is_verified = false; //isverifed est faux tant que la personne n'a pas vérifié son compte car il ne peut pas être null
+
+    #[ORM\Column(length: 100)]
+    private ?string $resetToken = null;
     /**
      * @var Collection<int, Orders>
      */
@@ -209,6 +212,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $is_verified): self
     {
         $this->is_verified = $is_verified;
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
         return $this;
     }
 
