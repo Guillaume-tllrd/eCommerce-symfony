@@ -17,7 +17,7 @@
 						<div class="card-body">
 							<h2 class="card-title">{{product.name}}</h2>
 							<p class="card-text">{{product.description}}</p>
-							<a class="btn btn-primary" href="">Voir les details</a>
+							<a class="btn btn-primary" href="{{path('products_details', {'id' : product.id})}}">Voir les details</a>
 						</div>
 					</article>
 				</div>

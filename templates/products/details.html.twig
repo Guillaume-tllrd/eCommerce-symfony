@@ -5,7 +5,57 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Détails de
-		{{product.name}}
-	</h1>
+	<main class="container">
+		<section class="row">
+			<div class="col-12">
+				<h1>
+					{{product.name}}
+				</h1>
+			</div>
+			<div class="col-6">
+				<div
+					id="carouselExampleIndicators" class="carousel slide">
+					{# même principe que pour les images, pour les indacteurs on doit boucler #}
+					<div class="carousel-indicators">
+						{% for iteration in 1..product.images|length %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{iteration - 1}}" {{(loop.first) ? 'class="active" aria-current="true"' : ''}} aria-label="Slide {{iteration}}"></button>
+						{% endfor %}
+					</div>
+					<div class="carousel-inner">
+						{% for image in product.images %}
+							{# pour la classe active on utilise la méthode de twig loop.first et une conditien en ternaire #}
+							<div class="carousel-item {{(loop.first) ? 'active' : " " }}">
+								{# on va chercher les images à l'aide de la fonction asset de twig qui se dirige directement dans public #}
+								{# on concatène avec le tilde #}
+							<img src="{{asset('assets/uploads/') ~ image.name }}" class="d-block w-100" alt="{{product.name}}"> </div>
+						{% endfor %}
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<p>{{product.description}}</p>
+				{# on peut récupérer la catégorie car c'est une relation avec product mais on doit bien prendre le nom exacte de la table et ensuite on prend le nom de la colonne  #}
+				<p>Catégorie :{{product.categories.name}}</p>
+				<p>Prix :
+					{{product.price /100}}
+					€</p>
+				{# on gère l'affichage du bouton en fonction du stock #}
+				{% if product.stock > 0 %}
+					<a href="#" class="btn btn-success">Ajouter au panier</a>
+				{% else %}
+					<p class="text-danger">Temporairement en rupture de stock</p>
+				{% endif %}
+
+
+			</div>
+		</section>
+	</main>
 {% endblock %}
