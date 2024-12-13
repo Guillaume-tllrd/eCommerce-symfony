@@ -11,7 +11,7 @@
 					{{category.name}}
 				</h1>
 			</div>
-			{% for product in products %}
+			{% for product in products.data %}
 				<div class="col-3 mb-3">
 					<article class="card h-100">
 						<div class="card-body">
@@ -22,6 +22,13 @@
 					</article>
 				</div>
 			{% endfor %}
+			{# on définit des variables notamment le chemin on prend celui de CategorieController #}
+			{% set path = 'categories_list'%}
+			{% set id = category.id %}
+			{% set pages = products.pages %}
+			{% set currentPage = products.page %}
+			{% include "_partials/_pagination.html.twig" %}
+
 		</section>
 	</main>
 

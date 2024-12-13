@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\Products;
 use App\Repository\CategoriesRepository;
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 // use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -26,11 +28,14 @@ class CategoriesController extends AbstractController
     #[Route('/{id}', name: 'list')]
     // Obligé de faire avec l'id pour la version 7.2 on ne peut faire avec le slug, il aurait fallaut rajouter ParamConerter acquis avec composer require sensio/framework-extra-bundle
     // #[ParamConverter('category', options: ['mapping' => ['slug' => 'slug']])]
-    public function list(Categories $category): Response
+    public function list(Categories $category, ProductsRepository $productsRepository, Request $request): Response
     {
-
+        // On va chercher le numéro de page dans l'url, on la met en défaut à 1:
+        $page = $request->query->getInt('page', 1);
+        $products = $productsRepository->findProductsPaginated($page, $category->getId(), 2);
+        // AVANT:
         //on va chercher la liste des produits de la catégorie dans l'entité categories, ouis on le passe dans la vue
-        $products = $category->getProducts();
+        // $products = $category->getProducts();
 
         return $this->render('categories/list.html.twig', compact('category', 'products'));
         // compact permet d'envoyer un tableau associatif , évite de faire : 
