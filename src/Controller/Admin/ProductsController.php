@@ -25,7 +25,7 @@ class ProductsController extends AbstractController
     public function edit(Products $product): Response
     {
         // on vérifie si l'utilisateur peut éditer avec le voter, on y envoie l'attribut et un obket product comme dans la function supports dans ProductsVoter
-        $this->denyAccessUnlessGranted('PRODUCT_EDIT, $product');
+        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
         return $this->render('admin/products/index.html.twig');
     }
     #[Route('/suppression/{id}', name: 'delete')]
