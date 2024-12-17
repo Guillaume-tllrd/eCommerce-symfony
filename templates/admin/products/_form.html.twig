@@ -1,0 +1,12 @@
+{# je crée un fichier partiel form car comme ça je l'utilise plusieur pour add et edit par exemple, je fais un un include pour l'intégrer ou je souhaite #}
+{# j'ulise la function twig form poour pouvoir faire afficher le form #}
+{{form_start(productForm)}}{{form_row(productForm.name)}}
+{{form_row(productForm.description)}}
+{{form_row(productForm.price)}}
+{{form_row(productForm.stock)}}
+{{form_row(productForm.categories)}}
+	<button class="btn btn-primary" type="submit"> Valider</button>
+{{form_end(productForm)}}
+
+{# pour rajouter des classes boostrap il faut aller dans le fichier twig.yml dans config>packages et rajouter: form_themes:['boostrap_5_layout.hmtl.twig'] #}
+{# avec form_row on a l'input et le label alors que form_widget on a seulement l'input #}
