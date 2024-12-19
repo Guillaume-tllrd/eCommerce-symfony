@@ -7,6 +7,7 @@ use App\Entity\Products;
 use App\Repository\CategoriesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +37,12 @@ class ProductsFormType extends AbstractType
                 }
                 // on choisit le nom pour choice_label et pas l'id
                 // le query_builder est une fonction qui va être executé de facon à sélectionner les info qu'on souhaite: ici il va chercher les cat dont le parent n'est pas null
-                // Arreté à 27:00
+            ])
+            ->add('images', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
             ])
         ;
     }

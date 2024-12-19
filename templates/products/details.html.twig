@@ -27,7 +27,7 @@
 							<div class="carousel-item {{(loop.first) ? 'active' : " " }}">
 								{# on va chercher les images à l'aide de la fonction asset de twig qui se dirige directement dans public #}
 								{# on concatène avec le tilde #}
-							<img src="{{asset('assets/uploads/') ~ image.name }}" class="d-block w-100" alt="{{product.name}}"> </div>
+							<img src="{{asset('assets/uploads/products/mini/300x300-' ~ image.name)}}" class="d-block w-100" alt="{{product.name}}"> </div>
 						{% endfor %}
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
