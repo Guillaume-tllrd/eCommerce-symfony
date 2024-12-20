@@ -57,9 +57,10 @@ class ProductsController extends AbstractController
             $slug = $slugger->slug($productForm->getName());
             // on le stock dans produit:
             $product->setSlug($slug);
+            // PLUS BESOIN D'ARRONDIR avec MoneyType dans le form 
             // on arrondit le prix pour la bdd:
-            $prix = $product->getPrice() * 100;
-            $product->setPrice($prix);
+            // $prix = $product->getPrice() * 100;
+            // $product->setPrice($prix);
 
             // on stocke en bdd:
             $em->persist($product);
@@ -80,8 +81,8 @@ class ProductsController extends AbstractController
         $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
         // Avant le formulaire on divise le prix par 100:
         // on arrondit le prix pour la bdd:
-        $prix = $product->getPrice() / 100;
-        $product->setPrice($prix);
+        // $prix = $product->getPrice() / 100;
+        // $product->setPrice($prix);
 
         // on crée le formulaire:
         $productForm = $this->createForm(ProductsFormType::class, $product);
@@ -110,9 +111,11 @@ class ProductsController extends AbstractController
             $slug = $slugger->slug($productForm->getName());
             // on le stock dans produit:
             $product->setSlug($slug);
+
+            // PLUS BESOIN D'ARRONDIR avec MoneyType dans le form 
             // on arrondit le prix pour la bdd:
-            $prix = $product->getPrice() * 100;
-            $product->setPrice($prix);
+            // $prix = $product->getPrice() * 100;
+            // $product->setPrice($prix);
 
             // on stocke en bdd:
             $em->persist($product);
@@ -150,7 +153,7 @@ class ProductsController extends AbstractController
                 $em->remove($image);
                 $em->flush();
 
-                return new JsonResponse(["succes" => true], 200);
+                return new JsonResponse(["success" => true], 200);
             }
             // si on rntre dans pas dans le if , la suppreission a échoué: 
             return new JsonResponse(["error" => 'Erreur de suppression'], 400);
