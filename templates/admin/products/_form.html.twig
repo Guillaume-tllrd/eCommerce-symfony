@@ -9,6 +9,7 @@
 
 
 {# on affiche les images si on est en édition #}
+{# bug method get a changer #}
 	{% if app.request.attributes.get('_route')== 'admin_products_edit'%}
 		{% for image in product.images %}
 			<div>
