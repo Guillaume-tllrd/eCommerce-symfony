@@ -38,6 +38,13 @@
 			</ul>
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				{% if app.user %}
+					{# pour que administration soit visible unqiuement par les admin il faut utiliser la fonction is_granted #}
+					{% if is_granted('ROLE_PRODUCT_ADMIN') %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('admin_index') }}">Administration</a>
+						</li>
+					{% endif %}
+
 					<li class="nav-item">
 						<a class="nav-link">Mon compte</a>
 					</li>
