@@ -46,7 +46,9 @@
 					{% endif %}
 
 					<li class="nav-item">
-						<a class="nav-link">Mon compte</a>
+						<a href="{{path("cart_index")}}" class="nav-link">Panier
+							{# <span>({{ totalQuantity }})</span> #}
+						</a>
 					</li>
 					{# on met la function twig path, on appelle la function logout dans le securityController#}
 					<li class="nav-item">

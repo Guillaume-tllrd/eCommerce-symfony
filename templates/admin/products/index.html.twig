@@ -21,13 +21,14 @@
 							<th>Actions</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="align-middle">
 						{% for produit in produits %}
 							<tr>
 								<td>{{produit.id}}</td>
-								<td><img src="{{asset('assets/uploads/products/mini/300x300-' ~ produit.images[0].name)}}" alt="{{produit.name}}" class="img-thumbnail"></td>
+								<td><img src="{{asset('assets/uploads/products/mini/300x300-' ~ produit.images[0].name)}}" alt="{{produit.name}}" class="img-thumbnail img-fluid" style="width: 100px; height: auto"></td>
 								<td>{{produit.name}}</td>
-								<td>{{produit.price / 100}}</td>
+								<td>{{produit.price / 100}}
+									€</td>
 								<td>{{produit.stock}}</td>
 								<td>
 									{{produit.categories.name}}

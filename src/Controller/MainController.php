@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategoriesRepository;
+use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,4 +19,11 @@ class MainController extends AbstractController
             'categories' => $categoriesRepository->findBy([], ['categoryOrder' => 'asc'])
         ]);
     }
+
+    // public function renderNavbar(CartService $cartService)
+    // {
+    //     return $this->render('_partials/_nav.html.twig', [
+    //         'totalQuantity' => $cartService->getTotalQuantity(),
+    //     ]);
+    // }
 }
