@@ -18,12 +18,6 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig', [
             'categories' => $categoriesRepository->findBy([], ['categoryOrder' => 'asc'])
         ]);
+        // return $this->render('main/index.html.twig');
     }
-
-    // public function renderNavbar(CartService $cartService)
-    // {
-    //     return $this->render('_partials/_nav.html.twig', [
-    //         'totalQuantity' => $cartService->getTotalQuantity(),
-    //     ]);
-    // }
 }
