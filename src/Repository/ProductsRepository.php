@@ -19,38 +19,32 @@ class ProductsRepository extends ServiceEntityRepository
 
     public function findProductsPaginated(int $page, int $id, int $limit = 6): array
     {
-        // abs pour return une valeur positive
         $limit = abs($limit);
 
-        $result = [];
+        // Initialisation du tableau de résultat avec des valeurs par défaut
+        $result = [
+            'data' => [],
+            'pages' => 1,
+            'page' => $page,
+            'limit' => $limit
+        ];
 
-        // ppour la requete: on sélectionne tout ce qu'il ya dans catégories et products de la table products jointe à la table catégories en fonction du slug de catégorie
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('c', 'p')
             ->from('App\Entity\Products', 'p')
             ->join('p.categories', 'c')
-            ->where("c.id = '$id'")
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
             ->setMaxResults($limit)
             ->setFirstResult(($page * $limit) - $limit);
 
-
         $paginator = new Paginator($query);
-        // on récuprèe les données:
         $data = $paginator->getQuery()->getResult();
 
-        // on vérifie qu'on a des donées:
-        if (empty($data)) {
-            return $result;
+        if (!empty($data)) {
+            $result['data'] = $data;
+            $result['pages'] = ceil($paginator->count() / $limit);
         }
-
-        // on calcul le nombre de pages:
-        $pages = ceil($paginator->count() / $limit);
-
-        // Une fois qu'on a le nombre de pages, on remplit le tableau.
-        $result['data'] = $data;
-        $result['pages'] = $pages;
-        $result['page'] = $page;
-        $result['limit'] = $limit;
 
         return $result;
     }

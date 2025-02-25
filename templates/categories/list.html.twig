@@ -11,25 +11,31 @@
 					{{category.name}}
 				</h1>
 			</div>
-			{% for product in products.data %}
-				<div class="col-3 mb-3">
-					<article
-						class="card h-100">
-						{# on prend la premiere image #}
-						<img src="{{asset('assets/uploads/products/mini/300x300-' ~ product.images[0].name)}}" class="card-img-top" alt="{{product.name}}">
-						<div class="card-body">
-							<h2 class="card-title">{{product.name}}</h2>
-							<p class="card-text">{{product.description}}</p>
-							<a class="btn btn-primary" href="{{path('products_details', {'id' : product.id})}}">Voir les details</a>
-						</div>
-					</article>
+			{% if products.data is defined and products.data is not empty %}
+				{% for product in products.data %}
+					<div class="col-3 mb-3">
+						<article
+							class="card h-100">
+							{# on prend la premiere image #}
+							<img src="{{asset('assets/uploads/products/mini/300x300-' ~ product.images[0].name)}}" class="card-img-top" alt="{{product.name}}">
+							<div class="card-body">
+								<h2 class="card-title">{{product.name}}</h2>
+								<p class="card-text">{{product.description}}</p>
+								<a class="btn btn-primary" href="{{path('products_details', {'id' : product.id})}}">Voir les details</a>
+							</div>
+						</article>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="col-12">
+					<p>Aucun produit trouvé dans cette catégorie.</p>
 				</div>
-			{% endfor %}
+			{% endif %}
 			{# on définit des variables notamment le chemin on prend celui de CategorieController #}
 			{% set path = 'categories_list'%}
 			{% set id = category.id %}
-			{% set pages = products.pages %}
-			{% set currentPage = products.page %}
+			{% set pages = products.pages ?? 1 %}
+			{% set currentPage = products.page ?? 1 %}
 			{% include "_partials/_pagination.html.twig" %}
 
 		</section>

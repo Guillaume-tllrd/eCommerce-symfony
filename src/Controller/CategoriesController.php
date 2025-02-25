@@ -32,7 +32,12 @@ class CategoriesController extends AbstractController
     {
         // On va chercher le numéro de page dans l'url, on la met en défaut à 1:
         $page = $request->query->getInt('page', 1);
-        $products = $productsRepository->findProductsPaginated($page, $category->getId(), 2);
+        $products = $productsRepository->findProductsPaginated($page, $category->getId(), 2) ?? [
+            'data' => [],
+            'pages' => 1,
+            'page' => $page,
+            'limit' => 2
+        ];
         // AVANT:
         //on va chercher la liste des produits de la catégorie dans l'entité categories, ouis on le passe dans la vue
         // $products = $category->getProducts();

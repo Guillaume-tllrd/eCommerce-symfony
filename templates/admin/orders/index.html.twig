@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Administration
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			{% include "_partials/_adminnav.html.twig" %}
+			<main class="col-9 boder border-light bg-withe p-2">
+				<h1>Commandes</h1>
+				<table class="table">
+					<thead>
+						<pre>
+							{{ dump(commandes) }}
+												</pre>
+						<tr>
+							<th>ID</th>
+							<th>Référence</th>
+							<th>Utilisateur</th>
+							<th>Date</th>
+							<th>Détails de la commande</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for commande in commandes %}
+							<tr>
+								<td>{{commande.id}}</td>
+								<td>{{commande.reference}}</td>
+								<td>{{commande.users.email}}</td>
+
+								<td>{{commande.created_at|date('d/m/y')}}</td>
+								<td></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+		</main>
+	</div>
+</div>{% endblock %}
