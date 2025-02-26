@@ -39,7 +39,7 @@ class OrdersController extends AbstractController
         foreach ($panier as $item => $quantity) {
             $orderDetails = new OrdersDetails();
 
-            // on va chercher le produit avec la méthode fin de productRepository:
+            // on va chercher le produit avec la méthode find de productRepository:
             $product = $productsRepository->find($item);
             // dd($product);
 
